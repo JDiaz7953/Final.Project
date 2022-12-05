@@ -1,0 +1,116 @@
+var points = 0;
+var currentScene = 1;
+var wormX = 205;
+var wormY = 41;
+var pelletX = 129;
+var pelletY = 144;
+var wormTail = 0;
+var direction = "S";
+var drawbitmoji=function(x,y,bitmojiSize){
+
+noStroke();
+//face
+fill(227, 209, 184);
+rect(x-(8*bitmojiSize/150), y+(48*bitmojiSize/150), bitmojiSize/150*19,bitmojiSize/150*10);//neck
+fill(227, 209, 184);
+ellipse(x+32*bitmojiSize/150,y,bitmojiSize/150*20,bitmojiSize/150*44);//right ear
+ellipse(x-32*bitmojiSize/150,y,bitmojiSize/150*20,bitmojiSize/150*44);//left ear
+ellipse(x,y,bitmojiSize/150*65,bitmojiSize/150*100);//face
+noStroke();
+fill(10, 10, 10);
+ellipse(x+(39*bitmojiSize/150),y-(32*bitmojiSize/150),bitmojiSize/150*30,bitmojiSize/150*22);//hair
+ellipse(x+(33*bitmojiSize/150),y-(46*bitmojiSize/150),bitmojiSize/150*30,bitmojiSize/150*22);//hair
+ellipse(x+(19*bitmojiSize/150),y-(55*bitmojiSize/150),bitmojiSize/150*30,bitmojiSize/150*22);//hair
+ellipse(x-(6*bitmojiSize/150),y-(57*bitmojiSize/150),bitmojiSize/150*30,bitmojiSize/150*22);//hair
+ellipse(x-(24*bitmojiSize/150),(y-51*bitmojiSize/150),bitmojiSize/150*30,bitmojiSize/150*22);//hair
+ellipse(x-(33*bitmojiSize/150),y-(43*bitmojiSize/150),bitmojiSize/150*30,bitmojiSize/150*22);//hair
+ellipse(x-(38*bitmojiSize/150),y-(33*bitmojiSize/150),bitmojiSize/150*30,bitmojiSize/150*22);//hair
+ellipse(x-(14*bitmojiSize/150),y-(15*bitmojiSize/150),bitmojiSize/150*14,bitmojiSize/150*12);//left eye
+ellipse(x+(17*bitmojiSize/150),y-(16*bitmojiSize/150),bitmojiSize/150*14,bitmojiSize/150*12);//right eye
+stroke(18, 17, 17);
+line(x+3*bitmojiSize/150, y-25*bitmojiSize/150, x+25*bitmojiSize/150, y-25*bitmojiSize/150);//right eyebrow
+line(x-24*bitmojiSize/150, y-25*bitmojiSize/150, x-5*bitmojiSize/150, y-25*bitmojiSize/150);// left eyebrow 
+fill(224, 146, 146);
+arc(x+6*bitmojiSize/150,y+30*bitmojiSize/150,bitmojiSize/150*45,bitmojiSize/150*-9,198,329);//lips 
+fill(227, 209, 184);
+
+bezier(x,y, x+21*bitmojiSize/150, y+21*bitmojiSize/150, x-6*bitmojiSize/150, y+20*bitmojiSize/150, x-4*bitmojiSize/150, y+15*bitmojiSize/150);//nose
+
+//body
+fill(3, 3, 3);
+quad(x-32*bitmojiSize/150, y+145*bitmojiSize/150, x+53*bitmojiSize/150, y+144*bitmojiSize/150, x+21*bitmojiSize/150, y+58*bitmojiSize/150, x-14*bitmojiSize/150, y+58*bitmojiSize/150);//body/tshirt
+fill(255, 251, 0);
+arc(x+6*bitmojiSize/150,y+60*bitmojiSize/150,bitmojiSize/150*45,bitmojiSize/150*-9,188,339);//gold chain
+textSize(bitmojiSize/150*24);
+fill(245, 245, 245);
+text("JD", x-6*bitmojiSize/150, y+95*bitmojiSize/150);
+
+
+
+};
+
+// Contructor for our button
+ var Button = function(config) {
+    this.x = config.x || 0;
+    this.y = config.y || 0;
+    this.width = config.width || 127;
+    this.height = config.height || 50;
+    this.label = config.label || "Click";
+    this.onClick = config.onClick || function() {};
+    this.color = config.color || color(42, 143, 30);
+
+ };
+Button.prototype.Changecolor = function(newColor){
+this.color = newColor; 
+
+
+};
+// Draws our button
+Button.prototype.draw = function() {
+    fill(this.color);
+    rect(this.x, this.y, this.width, this.height, 5);
+    fill(0, 0, 0);
+    textSize(19);
+    textAlign(LEFT, TOP);
+    text(this.label, this.x+10, this.y+this.height/4);
+};
+// A function that creates the hit box for our button
+Button.prototype.isMouseInside = function() {
+    return mouseX > this.x &&
+           mouseX < (this.x + this.width) &&
+           mouseY > this.y &&
+           mouseY < (this.y + this.height);
+};
+
+Button.prototype.handleMouseClick = function() {
+    if (this.isMouseInside()) {
+        this.onClick();
+    }
+};
+// The start Button and it's properties 
+var startButton = new Button({
+    x: 139,
+    y: 218,
+    label: "Start!",
+    onClick: function() {
+     currentScene = 2;
+    }
+
+});
+
+
+// Function to draw our worm
+var worm = function(){
+    fill(50, 102, 88);
+    rectMode(CENTER);
+    rect(wormX, wormY, 10, 10);
+   
+};
+
+//Function that draws the pellet the worm eats 
+var pellet = function(){
+    fill(255, 255, 255);
+    rectMode(CENTER);
+    rect( pelletX, pelletY ,5 ,5);
+   
+};

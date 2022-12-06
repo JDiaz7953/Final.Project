@@ -114,3 +114,110 @@ var pellet = function(){
     rect( pelletX, pelletY ,5 ,5);
    
 };
+
+
+//level Design
+
+var gameScreen = function() {
+    background(51, 255, 0);
+    drawbitmoji(371,24,27);
+    fill(41, 191, 11);
+    rect(-11, 184, 34, 418);
+    rect(157, -18, 473, 48);
+    rect(274, 570, 566, 354);
+    rect(424 , 71, 62, 757);   
+   fill(0, 0, 0);
+   textSize(20);
+   text("score: " + points , 11 , 22);
+   
+//Worm character/ways to make it move
+  pellet();
+  worm();
+
+if (keyIsPressed && keyCode === DOWN) {
+    direction =   "S";
+    
+}
+else if (keyIsPressed && keyCode === UP) {
+      direction = "N";
+}
+
+else if(keyIsPressed && keyCode === LEFT){
+       direction = "W";
+}
+else if(keyIsPressed && keyCode === RIGHT){
+       direction = "E";
+}
+
+if( direction === "S"){
+    wormY++;
+}
+else if( direction === "N"){
+    wormY--;
+}
+else if( direction === "W"){
+    wormX--;
+}
+else if( direction === "E"){
+    wormX++;
+}
+
+// Pellet/Points
+if((wormX >= pelletX && wormX <= pelletX +10) && (wormY >= pelletY && 
+   wormY <= pelletY +10)){
+    points+=5;
+    pelletX = random(11 , 385);
+    pelletY = random(11 , 385);
+    wormTail++;
+
+   }
+//Makes The worm stay within the play screen 
+ wormX = constrain(wormX , 11 , 387);
+ wormY = constrain(wormY , 11 , 387);
+
+//This makes the worm tail grows
+for( var i = 1; i <= wormTail; i++){
+    switch(direction){
+        case "N" :
+            rect(wormX, wormY + i * 10, 10, 10);
+            break;
+        case "S":
+                rect(wormX, wormY - i * 10, 10, 10);
+            break;
+        case "E" :
+             rect(wormX -( i*10) , wormY, 10, 11);
+           break;
+        case "W" :
+             rect(wormX +i*10, wormY, 10, 11);     
+        
+    }
+}
+ 
+keyPressed = function(){
+  if(keyCode === UP && direction !== "S"){
+     direction = "N";
+ }else if(keyCode === DOWN && direction  !== "N"){
+     direction = "S";
+ }else if(keyCode === LEFT && direction  !== "E"){
+     direction = "W";
+ }else if(keyCode === RIGHT && direction !== "W"){
+     direction = "E";
+     
+ 
+ }
+
+//if the snail collide with the out of bounds the game ends and player is sent back to the splash screen
+if((wormX <=  12 || wormX >= 385) || (wormY <= 13 || wormY >= 387)){
+    wormTail = 0;
+    points = 0;
+    wormX = 205;
+    wormY = 41;
+    currentScene = 1;
+  
+}else if(points === 50){
+    currentScene = 3;
+}
+
+};
+};
+

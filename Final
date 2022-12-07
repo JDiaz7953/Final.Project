@@ -221,3 +221,74 @@ if((wormX <=  12 || wormX >= 385) || (wormY <= 13 || wormY >= 387)){
 };
 };
 
+
+};
+};
+
+// Our starting screen
+var splash = function (){
+    
+    fill(0, 255, 47);
+    rect(0, 0, 808, 807);
+    fill(97, 179, 97);
+    textSize(19);
+    fill(5, 74, 9);
+    text("Author : Jaiden Diaz", 9, 18);
+    drawbitmoji(371,36,65);
+    textSize(13);
+    fill(22, 54, 10);
+    text("Welcome to snake,",134,55);
+    text("Direction:",25,70);
+    text("Use the arrow keys to control the snake",80,91);
+    text("Get the snake to eat the apple to gain 5 points",80,105);
+    text("Gain 50 points to WIN!",80,119);
+    text("BEAWARE OF THE WALLS! unless you feel like starting over",31,133);
+    textSize(19);
+    text("Enjoy!!", 169 ,146);
+    startButton.draw();
+ 
+
+};
+var youWin = function(){
+
+    fill(0, 255, 47);
+    rect(0, 0, 808, 807);
+    fill(97, 179, 97);
+    textSize(19);
+    fill(5, 74, 9);
+    text(" Author: Jaiden Diaz", 9, 18);
+    drawbitmoji(371,36,65);
+    fill(22, 54, 10);
+    textSize(24);
+    text("YOU WIN",134,88);
+    textSize(17);
+    text("Congratulations:",40,114);
+    textSize(17);
+    text("You were able to collect 50 points",40,133);
+    text("Press Restart & see if you can do it again!!",40,150);
+  
+    
+};
+
+//controls what can be seen on the screen (Splash screen or Gamescreen)
+draw = function(){
+    if( currentScene === 1){
+       splash();  
+  }
+    if( currentScene === 2){
+       gameScreen();
+   
+  }
+    if(currentScene === 3){
+      youWin();
+  }
+
+};
+
+//allows our button to function
+mouseClicked = function() {
+    if(currentScene === 1){
+      startButton.handleMouseClick();
+    }
+
+  };
